@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue-im-demo</title>
+  <link rel="stylesheet" type="text/css" href="node_modules/vue-im/dist/vue-im.min.css">
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="data/lists.js"></script>
+  <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+  <script src="node_modules/vue-im/dist/vue-im.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <vue-im :mine="mine" :lists="lists" :history="history" @on-send="handleSend" @on-chat-change="handleChatChange" ref="vueim"></vue-im>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        mine: {},
+        lists: [],
+        history: lists.log,
+        currentChat: null
+      },
+      methods: {
+        randomData: function () {
+          var index = Math.floor(Math.random() * lists.list.length);
+          var mine = lists.list[index]
+          var tempLists = lists.list.filter(function (item) {
+            return item.id !== mine.id
+          })
+          this.mine = mine
+          this.lists = tempLists
+        },
+        handleSend: function () {
+          this.$refs.vueim.getMessage({
+            content: '你好呀,我是' + this.currentChat.username,
+            avatar: this.currentChat.avatar,
+            sender: this.currentChat.id,
+            recver: this.mine.id,
+            time: new Date().getTime(),
+            sendername: this.currentChat.username,
+            recvername: this.mine.username
+          })
+        },
+        handleChatChange: function (chat) {
+          this.currentChat = chat
+        },
+      },
+      created: function () {
+        this.randomData();
+      }
+    })
+
+  </script>
+</body>
+</html>
