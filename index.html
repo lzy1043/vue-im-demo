@@ -5,6 +5,12 @@
   <title>vue-im-demo</title>
   <link rel="stylesheet" type="text/css" href="dist/vue-im.min.css">
   <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    #app {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
   <script src="data/lists.js"></script>
   <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
   <script src="dist/vue-im.min.js"></script>
@@ -32,14 +38,20 @@
           this.mine = mine
           this.lists = tempLists
         },
-        handleSend: function () {
+        handleSend: function (message) {
+          let avatar
+          this.lists.forEach(function (item) {
+            if (item.id === message.recver) {
+              avatar = item.avatar
+            }
+          })
           this.$refs.vueim.getMessage({
-            content: '你好呀,我是' + this.currentChat.username,
-            avatar: this.currentChat.avatar,
-            sender: this.currentChat.id,
+            content: `你好呀,我是${message.recvername}`,
+            avatar: avatar,
+            sender: message.recver,
             recver: this.mine.id,
             time: new Date().getTime(),
-            sendername: this.currentChat.username,
+            sendername: message.recvername,
             recvername: this.mine.username
           })
         },
