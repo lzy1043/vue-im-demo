@@ -1,4 +1,4 @@
-var lists =  {  
+var lists = {
   'list': [
     {
       'username': '会飞的猪',
@@ -262,5 +262,38 @@ var lists =  {
         recvername: '奔跑的五花肉'
       }
     ]
-  }
+  },
+  'members': [
+    {
+      'username': '奔跑的五花肉',
+      'id': '100001',
+      'avatar': '//ofl49b399.bkt.clouddn.com/2.jpg'
+    },
+    {
+      'username': '刘涛tamia',
+      'id': '100001222',
+      'avatar': '//tva4.sinaimg.cn/crop.0.1.1125.1125.180/475bb144jw8f9nwebnuhkj20v90vbwh9.jpg'
+    },
+    {
+      'username': '谢楠',
+      'id': '10034001',
+      'avatar': '//tva2.sinaimg.cn/crop.1.0.747.747.180/633f068fjw8f9h040n951j20ku0kr74t.jpg'
+    },
+    {
+      'username': '马小云',
+      'id': '168168',
+      'avatar': '//tva1.sinaimg.cn/crop.0.0.180.180.180/7fde8b93jw1e8qgp5bmzyj2050050aa8.jpg'
+    }
+  ],
+  'groups': [
+    {
+      'groupname': '前端群',
+      'id': '101',
+      'avatar': 'http://tp2.sinaimg.cn/2211874245/180/40050524279/0'
+    }, {
+      'groupname': 'Fly社区官方群',
+      'id': '102',
+      'avatar': 'http://tp2.sinaimg.cn/5488749285/50/5719808192/1'
+    }
+  ]
 }

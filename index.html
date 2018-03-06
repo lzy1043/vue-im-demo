@@ -11,13 +11,13 @@
       height: 100%;
     }
   </style>
-  <script src="data/lists.js"></script>
+  <script src="data/lists.js?20180306"></script>
   <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
   <script src="dist/vue-im.min.js"></script>
 </head>
 <body>
   <div id="app">
-    <vue-im :mine="mine" :lists="lists" :history="history" @on-send="handleSend" @on-chat-change="handleChatChange" ref="vueim"></vue-im>
+    <vue-im :mine="mine" :lists="lists" :history="history" :groups-list="groups" :members-list="membersList" @on-send="handleSend" ref="vueim"></vue-im>
   </div>
   <script>
     new Vue({
@@ -26,7 +26,9 @@
         mine: {},
         lists: [],
         history: lists.log,
-        currentChat: null
+        currentChat: null,
+        membersList: lists.members,
+        groups: lists.groups
       },
       methods: {
         randomData: function () {
@@ -52,7 +54,8 @@
             recver: this.mine.id,
             time: new Date().getTime(),
             sendername: message.recvername,
-            recvername: this.mine.username
+            recvername: this.mine.username,
+            type: 'text'
           })
         },
         handleChatChange: function (chat) {
@@ -60,7 +63,9 @@
         },
       },
       created: function () {
-        this.randomData();
+        setTimeout(() => {
+          this.randomData();
+        }, 0)
       }
     })
 
