@@ -41,21 +41,24 @@
           this.lists = tempLists
         },
         handleSend: function (message) {
-          let avatar
+          var avatar
+          var self = this
           this.lists.forEach(function (item) {
             if (item.id === message.recver) {
               avatar = item.avatar
             }
           })
-          this.$refs.vueim.getMessage({
+          this.$nextTick(function () {
+            self.$refs.vueim.getMessage({
             content: `你好呀,我是${message.recvername}`,
             avatar: avatar,
             sender: message.recver,
-            recver: this.mine.id,
+            recver: self.mine.id,
             time: new Date().getTime(),
             sendername: message.recvername,
-            recvername: this.mine.username,
+            recvername: self.mine.username,
             type: 'text'
+          })
           })
         },
         handleChatChange: function (chat) {
