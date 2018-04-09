@@ -17,7 +17,7 @@
 </head>
 <body>
   <div id="app">
-    <vue-im :mine="mine" :lists="lists" :history="history" :groups-list="groups" :members-list="membersList" @on-send="handleSend" ref="vueim"></vue-im>
+    <vue-im :mine="mine" :lists="lists" :history="history" :groups-list="groups" :members-list="membersList" @on-send="handleSend" @on-view-history="handleViewHistory" ref="vueim"></vue-im>
   </div>
   <script>
     new Vue({
@@ -25,15 +25,15 @@
       data: {
         mine: {},
         lists: [],
-        history: lists.log,
+        history: {},
         currentChat: null,
         membersList: lists.members,
         groups: lists.groups
       },
       methods: {
         randomData: function () {
-          var index = Math.floor(Math.random() * lists.list.length);
-          var mine = lists.list[index]
+          // var index = Math.floor(Math.random() * lists.list.length);
+          var mine = lists.list[0]
           var tempLists = lists.list.filter(function (item) {
             return item.id !== mine.id
           })
@@ -41,29 +41,29 @@
           this.lists = tempLists
         },
         handleSend: function (message) {
-          var avatar
-          var self = this
+          let avatar
           this.lists.forEach(function (item) {
             if (item.id === message.recver) {
               avatar = item.avatar
             }
           })
-          this.$nextTick(function () {
-            self.$refs.vueim.getMessage({
+          this.$refs.vueim.getMessage({
             content: `你好呀,我是${message.recvername}`,
             avatar: avatar,
             sender: message.recver,
-            recver: self.mine.id,
+            recver: this.mine.id,
             time: new Date().getTime(),
             sendername: message.recvername,
-            recvername: self.mine.username,
+            recvername: this.mine.username,
             type: 'text'
-          })
           })
         },
         handleChatChange: function (chat) {
           this.currentChat = chat
         },
+        handleViewHistory() {
+          this.history = lists.log
+        }
       },
       created: function () {
         setTimeout(() => {
